@@ -26,6 +26,10 @@ class AppTestCommand extends Command
      */
     public function handle()
     {
-        dump(Socialite::driver('keycloak')->redirect());
+        // $keycloak = Socialite::driver('keycloak');
+        // $resp = $keycloak->get('/auth/realms/test/protocol/openid-connect/userinfo');
+        // dump(get_class_methods($keycloak));
+
+        dump( \App\Services\Auth::login('jeff@grr.la', 'jeff@grr.la') );
     }
 }
