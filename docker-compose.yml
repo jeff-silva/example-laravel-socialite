@@ -20,6 +20,8 @@ services:
       - "${SERVICE_BACKEND_PORT:-8000}:8000"
     networks:
       - sail
+    depends_on:
+      - mysql
 
   mysql:
     build: ./mysql
@@ -38,6 +40,13 @@ services:
       - sail
     depends_on:
       - mysql
+
+  keycloak:
+    build: ./keycloak
+    env_file: ./keycloak/.env
+    command: start-dev
+    ports:
+      - ${SERVICE_KEYCLOAK_PORT:-8002}:8080
 
   # frontend:
   #   build: ./.docker/frontend
