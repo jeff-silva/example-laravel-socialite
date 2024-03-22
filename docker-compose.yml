@@ -17,7 +17,7 @@ services:
     volumes:
       - "./backend:/app"
     ports:
-      - "${BACKEND_PORT:-8000}:8000"
+      - "${SERVICE_BACKEND_PORT:-8000}:8000"
     networks:
       - sail
 
@@ -25,19 +25,19 @@ services:
     build: ./mysql
     env_file: ./mysql/.env
     ports:
-      - "${DB_PORT:-3306}:3306"
+      - "${SERVICE_MYSQL_PORT:-3306}:3306"
     networks:
       - sail
 
-  # phpmyadmin:
-  #   build: ./.docker/phpmyadmin
-  #   env_file: ./.docker/phpmyadmin/.env
-  #   ports:
-  #     - "${PMA_PORT:-8081}:80"
-  #   networks:
-  #     - sail
-  #   depends_on:
-  #     - mysql
+  phpmyadmin:
+    build: ./phpmyadmin
+    env_file: ./phpmyadmin/.env
+    ports:
+      - "${SERVICE_PMA_PORT:-8081}:80"
+    networks:
+      - sail
+    depends_on:
+      - mysql
 
   # frontend:
   #   build: ./.docker/frontend
