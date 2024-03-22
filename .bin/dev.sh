@@ -1,7 +1,6 @@
 #!/bin/bash
 reset
 
-# Função para verificar se o arquivo .env.example existe em uma subpasta
 function check_env_example() {
   local subpasta="$1"
 
