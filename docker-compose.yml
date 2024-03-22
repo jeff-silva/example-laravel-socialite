@@ -1,0 +1,63 @@
+version: "3.8"
+
+networks:
+  sail:
+    # driver: bridge
+
+volumes:
+  sail-mysql:
+    # driver: local
+  sail-redis:
+    driver: local
+
+services:
+  backend:
+    build: ./backend/
+    env_file: ./backend/.env
+    volumes:
+      - "./backend:/app"
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    networks:
+      - sail
+
+  mysql:
+    build: ./mysql
+    env_file: ./mysql/.env
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    networks:
+      - sail
+
+  # phpmyadmin:
+  #   build: ./.docker/phpmyadmin
+  #   env_file: ./.docker/phpmyadmin/.env
+  #   ports:
+  #     - "${PMA_PORT:-8081}:80"
+  #   networks:
+  #     - sail
+  #   depends_on:
+  #     - mysql
+
+  # frontend:
+  #   build: ./.docker/frontend
+  #   env_file: ./frontend/.env
+  #   command: bash -c "yarn install && yarn dev"
+  #   ports:
+  #     - ${VITE_PORT:-24678}:${VITE_PORT:-24678}
+  #     - ${FRONTEND_PORT:-3000}:3000
+  #   volumes:
+  #     - "./frontend:/app"
+  #   networks:
+  #     - sail
+
+  # websocket:
+  #   build: ./.docker/websocket
+  #   env_file: ./websocket/.env
+  #   command: bash -c "yarn install && yarn dev"
+  #   ports:
+  #     - ${WEBSOCKET_PORT:-8443}:80
+  #   volumes:
+  #     - "./websocket:/app"
+  #   networks:
+  #     - sail

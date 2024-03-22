@@ -5,15 +5,17 @@ reset
 function check_env_example() {
   local subpasta="$1"
 
-  if [ -f "$subpasta/.env.example" ]; then
-    # cp "$subpasta/.env.example" "$subpasta/.dev"
+  if [ ! -f "$subpasta/.env" ]; then
+    if [ -f "$subpasta/.env.example" ]; then
+        cp "$subpasta/.env.example" "$subpasta/.env"
+    fi
   fi
 }
 
-# Percorrer todas as subpastas da pasta atual
+check_env_example .
+
 for subpasta in */ ; do
-  # Chamar a função para verificar se o arquivo .env.example existe na subpasta
   check_env_example "$subpasta"
 done
 
-# docker-compose up --build --force-recreate --remove-orphans
+docker compose up --build --force-recreate --remove-orphans
