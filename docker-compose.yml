@@ -49,6 +49,8 @@ services:
       - ${SERVICE_KEYCLOAK_PORT:-8002}:8080
     networks:
       - sail
+    # volumes:
+    #   - "./keycloak/db:/opt/keycloak/data"
 
   # frontend:
   #   build: ./.docker/frontend
