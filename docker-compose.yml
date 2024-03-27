@@ -22,6 +22,8 @@ services:
       - sail
     depends_on:
       - mysql
+    extra_hosts:
+      - host.docker.internal:host-gateway
 
   mysql:
     build: ./mysql

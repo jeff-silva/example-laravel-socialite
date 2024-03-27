@@ -10,6 +10,15 @@ ENV LARAVEL_DATABASE_USER=${DB_USERNAME:-app}
 
 RUN apt-get update && apt-get -y install cron supervisor
 
+# RUN echo 'extension=xdebug.so' >> /opt/bitnami/php/lib/php.ini
+
+# # Add Xdebug configuration
+# RUN echo "[xdebug]" >> /opt/bitnami/php/lib/php.ini && \
+#     echo "xdebug.mode=debug" >> /opt/bitnami/php/lib/php.ini && \
+#     echo "xdebug.start_with_request=yes" >> /opt/bitnami/php/lib/php.ini && \
+#     echo "xdebug.client_host=host.docker.internal" >> /opt/bitnami/php/lib/php.ini && \
+#     echo "xdebug.client_port=9003" >> /opt/bitnami/php/lib/php.ini
+
 COPY start-container /usr/local/bin/start-container
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN chmod +x /usr/local/bin/start-container
